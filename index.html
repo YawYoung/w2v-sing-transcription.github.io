@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">
+.anticon {
+  display: inline-block;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -0.125em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.anticon > * {
+  line-height: 1;
+}
+
+.anticon svg {
+  display: inline-block;
+}
+
+.anticon::before {
+  display: none;
+}
+
+.anticon .anticon-icon {
+  display: block;
+}
+
+.anticon[tabindex] {
+  cursor: pointer;
+}
+
+.anticon-spin::before,
+.anticon-spin {
+  display: inline-block;
+  -webkit-animation: loadingCircle 1s infinite linear;
+  animation: loadingCircle 1s infinite linear;
+}
+
+@-webkit-keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style>
+    <title>w2v-sing-transcription</title>
+    <link href="./resource/bootstrap.min.css" rel="stylesheet">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./resource/jquery.min.js"></script>
+    <script src="./resource/helper-v2.js" defer=""></script>
+    <style>
+      td {
+        vertical-align: middle;
+      }
+      audio {
+        width: 20vw;
+        min-width: 100px;
+        max-width: 250px;
+      }
+      .timestamp-label {
+        color: gray;
+      }
+      table.wide-audio audio {
+        width: 40vw;
+        max-width: 40vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+      <div class="text-center">
+        <h1>Transfer Learning of Wav2vec 2.0 for Sing Transcription</h1>
+        <p class="fst-italic mb-0">
+          Yao Qiu, Jinchao Zhang, Yong Shan, Jie Zhou
+        </p>
+        <p>WeChat AI</p>
+      </div>
+      <h3>
+        <b>Abstract</b>
+      </h3>
+      <p>
+        Note-level automatic singing transcription is a task that aims to automatically estimate the sequence of song notes from a music recording that contains a singer's voice.
+        Recently, the introduction of deep learning methods has led to significant performance improvements.
+        However, the development of these models suffer from limited training data, because annotation of the sing transcription dataset requires a high level of musical proficiency and is very labor-intensive.
+        In order to solve the problem of data shortage, we replaced the feature extractor (such as mel-spectrogram) with a wav2vec model which is pretrained on a large scale speech data, transfering the pretrained speech knowledge to the sing transcription task. Experiments showed that our proposed method significantly outperforms the SOTA method.
+      </p>
+    </div>
+
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+      <h3>Approach</h3>
+      <p>Our model takes audio data as input and uses wav2vec 2.0 to get its contextual representation. Each token represents a frame (about 20ms). The Onset&Offset Predictor predicts whether the corresponding time of each token is the start/end position of one note, and the Pitch Predictor predicts the pitch at that time.</p>
+      <img src="./resource/method-overview.png" width="35%" align="center">
+    </div>
+
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+      <h3>Experiment result</h3>
+      On the MIR-ST500 dataset, our method surpasses the SOTA method by 4.34 points (COnPOff metric).
+      <img src="./resource/exp-result.png" width="50%" align="center">
+      <ol>
+      <li>Omnizart: A general toolbox for automatic music transcription</li>
+      <li>On the preparation and validation of a largescale dataset of singing transcription</li>
+      <li>Training a Singing Transcription Model Using Connectionist Temporal Classification Loss and Cross-Entropy Loss</li>
+      <li>MusicYOLO: A Vision-Based Framework for Automatic Singing Transcription</li>
+      </ol>
+    </div>
+
+    <div class="container pt-5 mt-5 shadow p-5 mb-5 bg-white rounded">
+      <h3>Demos</h3>
+      The first column is the singing audio, and the second column is the transcription result.
+      <p></p>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-405-1-h.mp3" type="audio/mp3"></audio>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-405-1.mp3" type="audio/mp3"></audio> <p></p>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-424-1-h.mp3" type="audio/mp3"></audio>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-424-1.mp3" type="audio/mp3"></audio> <p></p>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-431-1-h.mp3" type="audio/mp3"></audio>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-431-1.mp3" type="audio/mp3"></audio> <p></p>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-469-1-h.mp3" type="audio/mp3"></audio>
+      <audio controls="" controlslist="nodownload" class="px-1"> <source src="resource/demo-469-1.mp3" type="audio/mp3"></audio> <p></p>
+    </div>
+
